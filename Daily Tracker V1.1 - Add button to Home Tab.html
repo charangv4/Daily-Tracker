@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Daily Tracker</title>
+  <!-- Link to your external CSS file -->
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    /* Basic inline styles for layout; replace with your own styles in styles.css */
+    body { font-family: Arial, sans-serif; margin: 0; padding: 0; }
+    header { background: #164749; color: #fff; padding: 10px 20px; display: flex; justify-content: space-between; align-items: Center; }
+    header h1 { margin: 0; }
+    .header-right { display: flex; align-items: center; }
+    #current-date { margin-right: 15px; }
+    .settings-icon { width: 24px; height: 24px; cursor: pointer; }
+    nav.tabs { background: #3b8486; display: flex; }
+    nav.tabs button { flex: 1; padding: 10px; background: none; border: none; color: #fff; cursor: pointer; }
+    nav.tabs button.active { background: #03b2b8; }
+    main { padding: 20px; }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+    .charts { display: flex; justify-content: space-between; }
+    .charts > div { width: 48%; }
+    ul { list-style: none; padding: 0; }
+    ul li { padding: 5px 0; border-bottom: 1px solid #ccc; }
+    /* Positioning the floating button inside the Dashboard section */
+    #Dashboard { position: relative; }
+    .add-button {
+      position: fixed;
+      bottom: 40px;
+      right: 40px;
+      background-color: white;
+      border: none;
+      color:#3b8486;
+      border-radius: 50%;
+      width: 65px;
+      height: 65px;
+      font-size: 65px;
+      cursor: pointer;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header Section -->
+  <header>
+    <h1>Daily Tracker</h1>
+    <div class="header-right">
+      <!-- Today's date will be injected here by JavaScript -->
+      <span id="current-date"></span>
+      <!-- Settings gear icon (replace "gear-icon.png" with your actual icon image) -->
+      <img src="gear-icon.png" alt="Settings" class="settings-icon">
+    </div>
+  </header>
+
+  <!-- Navigation Tabs -->
+  <nav class="tabs">
+    <button class="tab-button active" onclick="showTab('Dashboard', event)">Dashboard</button>
+    <button class="tab-button" onclick="showTab('statistics', event)">Statistics</button>
+    <button class="tab-button" onclick="showTab('accounts', event)">Accounts</button>
+    <button class="tab-button" onclick="showTab('transactions', event)">Transactions</button>
+  </nav>
+
+  <!-- Main Content Area -->
+  <main>
+    <!-- Dashboard Section -->
+    <section id="Dashboard" class="tab-content active">
+      <h2>Dashboard</h2>
+      <div class="summary">
+        <div class="income-summary">
+          <h3>Total Income for the Month</h3>
+          <p>$0.00</p> <!-- Placeholder for income summary -->
+        </div>
+        <div class="expenses-summary">
+          <h3>Total Expenses for the Month</h3>
+          <p>$0.00</p> <!-- Placeholder for expenses summary -->
+        </div>
+      </div>
+      <div class="last-transactions">
+        <h3>Last 10 Transactions</h3>
+        <ul>
+          <li>Transaction 1</li>
+          <li>Transaction 2</li>
+          <li>Transaction 3</li>
+          <li>Transaction 4</li>
+          <li>Transaction 5</li>
+          <li>Transaction 6</li>
+          <li>Transaction 7</li>
+          <li>Transaction 8</li>
+          <li>Transaction 9</li>
+          <li>Transaction 10</li>
+        </ul>
+      </div>
+      <!-- Floating Add Button -->
+      <button class="add-button" title="New Transaction">+</button>
+    </section>
+
+    <!-- Statistics Section -->
+    <section id="statistics" class="tab-content">
+      <h2>Statistics</h2>
+      <div class="charts">
+        <div class="income-chart">
+          <h3>Income Sources</h3>
+          <!-- Placeholder for income pie chart -->
+          <canvas id="incomeChart"></canvas>
+        </div>
+        <div class="expenses-chart">
+          <h3>Expenses</h3>
+          <!-- Placeholder for expenses pie chart -->
+          <canvas id="expensesChart"></canvas>
+        </div>
+      </div>
+    </section>
+
+    <!-- Accounts Section -->
+    <section id="accounts" class="tab-content">
+      <h2>Accounts</h2>
+      <ul>
+        <li>Checking Account: $0.00</li>
+        <li>Savings Account: $0.00</li>
+        <li>Credit Account: $0.00</li>
+        <!-- Add more accounts as needed -->
+      </ul>
+    </section>
+
+    <!-- Transactions Section -->
+    <section id="transactions" class="tab-content">
+      <h2>Transactions</h2>
+      <ul>
+        <!-- List transactions with the latest transaction at the top -->
+        <li>Latest Transaction</li>
+        <li>Previous Transaction</li>
+        <li>Another Transaction</li>
+        <!-- Continue listing transactions -->
+      </ul>
+    </section>
+  </main>
+
+  <!-- External JavaScript file -->
+  <script src="script.js"></script>
+  <script>
+    // Display today's date in the header
+    document.getElementById('current-date').textContent = new Date().toLocaleDateString();
+
+    // Function to handle tab switching
+    function showTab(tabId, event) {
+      var tabs = document.getElementsByClassName('tab-content');
+      for (var i = 0; i < tabs.length; i++) {
+        tabs[i].classList.remove('active');
+      }
+      // Show the selected tab content
+      document.getElementById(tabId).classList.add('active');
+
+      // Update active state on tab buttons
+      var buttons = document.getElementsByClassName('tab-button');
+      for (var i = 0; i < buttons.length; i++) {
+        buttons[i].classList.remove('active');
+      }
+      event.currentTarget.classList.add('active');
+    }
+  </script>
+</body>
+</html>
